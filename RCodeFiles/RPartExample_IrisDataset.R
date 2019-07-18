@@ -1,6 +1,5 @@
 #########################
-## R Script accompanying "Recursive Binary Partitioning and the Random Forest: An Introduction to Tree-Based Machine Learning Methods in R" 
-## Code for examples in paper pre walkthrough section using iris dataset
+## R Script accompanying "Predictive Modeling in R" NUIT Workshop
 ## Authors: Andrew N Hall, David M Condon, Daniel K Mroczek
 #########################
 

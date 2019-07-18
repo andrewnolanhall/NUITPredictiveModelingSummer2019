@@ -1,7 +1,6 @@
 #########################
-## R Script accompanying "Recursive Binary Partitioning and the Random Forest: An Introduction to Tree-Based Machine Learning Methods in R" 
-## Code for supplemental classification example
-## Authors: Andrew N Hall, David M Condon, Daniel K Mroczek
+## R Script accompanying "Predictive Modeling in R" NUIT Workshop
+## Authors: Andrew N Hall
 #########################
 
 ## Load packages

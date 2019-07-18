@@ -1,6 +1,5 @@
 #########################
-## R Script accompanying "Recursive Binary Partitioning and the Random Forest: An Introduction to Tree-Based Machine Learning Methods in R" 
-## In-text Walkthough
+## R Script accompanying "Predictive Modeling in R" NUIT Workshop
 ## Authors: Andrew N Hall, David M Condon, Daniel K Mroczek
 #########################
 
