@@ -35,8 +35,11 @@ dim(dat_test) #74 obs
 ##########################################
 ## Regression with quantitative outcome ##
 ##########################################
-reg_train <- lm(Sepal.Length ~ ., data = dat_train) #train the model on the training data alone
-reg_predict <- predict(reg_train, newdata = dat_test, type = "response")
+reg_train <- lm(Sepal.Length ~ ., 
+                data = dat_train) #train the model on the training data alone
+reg_predict <- predict(reg_train, 
+                       newdata = dat_test, 
+                       type = "response")
 
 # Ways of evaluating model
 # RMSE
@@ -53,8 +56,11 @@ cor(dat_test$Sepal.Length, reg_predict)
 # 2) Predict on the test data
 # 3) Evaluate prediction using RMSE and correlation
 
-reg_train <- lm(, data = ) #construct linear model using training data
-reg_predict <- predict( , newdata = , type = ) #predict model on the test dataset
+reg_train <- lm(,                   #write relevant model structure here
+                data = )            #what data do you build your mode on? 
+reg_predict <- predict( ,           #what model will be doing the predicting? 
+                        newdata = , #what is the new data you want to test this on? 
+                        type = )    #what is the specific type of response? 
 
 reg_RMSE <- sqrt(mean(( - )^2, na.rm = T)) #Root Mean Squared Error  #evaluate RMSE
 print(reg_RMSE)
@@ -67,7 +73,7 @@ cor(dat_test$, )
 ######################
 
 # Setting up folds: 
-set.seed(12345) #set seed for reproducible examples
+set.seed(12345)   #set seed for reproducible examples
 folds <- sample(1:5, size = nrow(dat_iris),replace = T) #assign each observation to a fold 1:5
 nrow(dat_iris[folds == 1, ]) #demonstrate that there are 28 obs in first fold
 pred_outcomes <- rep(NA, n = nrow(dat_iris)) #need to create an output vector for predictions
@@ -94,14 +100,14 @@ cor(dat_iris$Sepal.Length, pred_outcomes)
 
 # NOTE: can use the same folds set up as before, but let's try to get the same result
 # Setting up folds: 
-set.seed(12345) #set seed for reproducible examples
+set.seed(12345)                           #set seed for reproducible examples
 folds <- sample(   , size = , replace = ) #assign each observation to a fold 1:5
-pred_outcomes <- rep(NA, n = ) #need to create an output vector for predictions
+pred_outcomes <- rep(NA, n = )            #need to create an output vector for predictions. How many? 
 
 # CV code: 
-for (i in 1:5) { #for each of the i folds, 1 through 5
-  test <-      #assign each fold to the "test" in turn
-  reg_train <- lm( ~., data = ) #train model as normal, subsetting out the test 
+for (i in ) {                     #for each of the i folds, 1 through 5
+  test <-                         #assign each fold to the "test" in turn
+  reg_train <- lm( ~., data = )   #train model as normal, subsetting out the test 
   pred_outcomes <- predict(reg_train, newdata = ) #make predictions and store in vector
 }
 
@@ -260,14 +266,14 @@ sqrt()   #take the final MSE value and square root of the training data (but bas
 
 
 ## Variable importance
-varImpPlot(, 
+varImpPlot(,          #specify the constructed model
            type = 2, 
-           main = "") #title for plot
+           main = "") #title for plot (whatever you want)
 
 
 ## Evaluate RF performance on test data
-pred_rf = predict(, 
-                  newdata =)
+pred_rf = predict(,            #specify the model that will be used for prediction
+                  newdata =)   #what new dataset do you want to evaluate on?
 #RMSE
 rf_RMSE = sqrt(mean((  -   )^2))
 print(rf_RMSE)
