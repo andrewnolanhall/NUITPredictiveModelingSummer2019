@@ -129,7 +129,7 @@ dat <- dat %>%
 
 ## Recursive Binary Partitioning (Decision Tree) for Classification
 ## Separate training and test datasets 
-set.seed(44)
+set.seed(12345)
 dat_train <- dat %>% 
   sample_frac(size = 7/10) #sample 7/10 of the observations for the training dataset
 dat_test <- dat %>% 
@@ -141,6 +141,7 @@ dtree <- rpart(ER~., #specify model type
                parms = list(split= "gini"), #use gini criterion for evaluation
                data = dat_train) #construct on training data
 
+## Visualize decision tree
 plot(dtree, uniform = T, main = "Decision Tree for Classification of ER Visits") #create decision tree plot
 text(dtree, pretty = 0) #add text to decision tree plot
 
@@ -153,4 +154,126 @@ pred_dtree <- predict(dtree,
 cm_dtree <- table(pred_dtree, dat_test$ER) #create a confusion matrix of accurate vs. inaccurate predictions. We see the model is doing a poor job of classifying people who did visit ER! 
 cm_dtree
 (cm_dtree[1] + cm_dtree[4])/nrow(dat_test) #calculate
+
+#############################
+## EXERCISE: Decision Tree ##
+############################
+# Do the following steps, using the starter code as a guide:
+# 1) Construct a model on the training data to predict `Age` on training data
+#     -NOTE: this is a quantitative outcome so it's a regression decision tree not classification    
+# 2) Visualize your decision tree
+# 3) Evaluate predictions on test dataset using RMSE and correlation
+
+## Build decision tree
+
+dtree <- rpart( ,       #specify model 
+               ,        #specify correct method (hint: it's different from before)
+               ,        #use gini criterion for evaluation
+               )        #construct on training data
+
+
+## Visualize decision tree
+plot( ,          #what are you plotting? 
+     uniform = , #want uniform or not?  
+     main = "")  #name plot
+
+text(dtree, pretty = 0) #add text to decision tree plot
+
+## Predict on test data
+pred_dtree <- predict(,             #model used to make predictions
+                      newdata = ,   #make predictions on test set
+                      type = "vector")    #what is the type of outcome? 
+
+pred_dtree <- predict(dtree,
+                      newdata = dat_test, 
+                      type = "vector")
+
+## Evaluate on test data
+print(pred_dtree) #vector of results
+#RMSE
+dt_RMSE = sqrt(mean((   -   )^2, na.rm = T)) #Root Mean Squared Error
+print(dt_RMSE) #RMSE 
+#Correlation
+cor(  ,  )
+
+
+################################################################################
+
+###################
+## Random Forest ##
+###################
+
+# Need complete observations only
+set.seed(12345)
+dat_complete <- dat[complete.cases(dat),] #takes only complete cases from the dataset
+dat_complete_train <- dat_complete %>% 
+  sample_frac(size = 7/10) #sample 7/10 of the observations for the training dataset
+dat_complete_test <- dat_complete %>% 
+  setdiff(dat_complete_train) #take the rest for the test dataset
+
+dim(dat_complete_train) #1658 obs
+dim(dat_complete_test) #711 obs
+
+# Random Forest 
+set.seed(12345) #set seed for reproducible results
+rf <- randomForest(health ~ ., #formula for prediction. 
+                   data = dat_complete_train, #use the complete training data
+                   ntree = 500, #number of trees
+                   importance = TRUE) #function to create a random forest using default values for ntree and mtry
+
+rf #gives MSE results. Take square root to get RMSE
+sqrt(rf$mse[500]) #take the final MSE value and square root of the training data (but based on OOB error)
+
+
+## Variable importance
+varImpPlot(rf, 
+           type = 2, 
+           main = "Variable Importance for Random Forest Regression") #creates importance plot
+
+## Evaluate RF performance on test data
+pred_rf = predict(rf, 
+                  newdata = dat_complete_test)
+#RMSE
+rf_RMSE = sqrt(mean((pred_rf-dat_complete_test$health)^2))
+print(rf_RMSE)
+#Correlation
+cor(pred_rf, dat_complete_test$health)
+
+
+#############################
+## EXERCISE: Random Forest ##
+#############################
+# Do the following steps, using the starter code as a guide:
+# 1) Construct a model on the training data to predict `Age` on training data
+# 2) Visualize your random forest results using variable importance 
+# 3) Evaluate predictions on test dataset using RMSE and correlation
+
+# Random Forest 
+set.seed(12345) #set seed for reproducible results
+rf <- randomForest( ~ .,       #formula for prediction. 
+                   data = ,    #use the complete training data
+                   ntree = ,   #number of trees
+                   importance = ) #do you want importance values or not? 
+
+rf       #gives MSE results. Take square root to get RMSE
+sqrt()   #take the final MSE value and square root of the training data (but based on OOB error)
+
+
+## Variable importance
+varImpPlot(, 
+           type = 2, 
+           main = "") #title for plot
+
+
+## Evaluate RF performance on test data
+pred_rf = predict(, 
+                  newdata =)
+#RMSE
+rf_RMSE = sqrt(mean((  -   )^2))
+print(rf_RMSE)
+#Correlation
+cor(pred_rf, )
+
+
+
 
